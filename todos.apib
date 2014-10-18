@@ -12,27 +12,27 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
 
 + Request (application/json)
 
-            {
-                "title": "do this"
-            }
+			{
+				"title": "do this"
+			}
 
 + Response 201 (application/json; charset=utf-8)
 
-            {
-                "id": 42,
-                "title": "do this",
-                "completed": false
-            }
+			{
+				"id": 42,
+				"title": "do this",
+				"completed": false
+			}
 
 ## List all Todos [GET]
 
 + Response 200 (application/json; charset=utf-8)
 
-            [{
-                "id": 42,
-                "title": "do this",
-                "completed": false
-            }]
+			[{
+				"id": 42,
+				"title": "do this",
+				"completed": false
+			}]
 
 ## Archive completed Todos [DELETE]
 
@@ -41,36 +41,36 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
 # Todo [/todos/{id}]
 
 + Parameters
-    + id (required, number, `42`)
+	+ id (required, number, `42`)
 
 ## Get a Todo [GET]
 
 + Response 200 (application/json; charset=utf-8)
 
-            {
-                "id": 42,
-                "title": "do this",
-                "completed": false
-            }
+			{
+				"id": 42,
+				"title": "do this",
+				"completed": false
+			}
 
 
 ## Update a Todo [PUT]
 
 + Request (application/json)
 
-            {
-                "id": 42,
-                "title": "do this",
-                "completed": true
-            }
+			{
+				"id": 42,
+				"title": "do this",
+				"completed": true
+			}
 
 + Response 200 (application/json; charset=utf-8)
 
-            {
-                "id": 42,
-                "title": "do this",
-                "completed": true
-            }
+			{
+				"id": 42,
+				"title": "do this",
+				"completed": true
+			}
 
 ## Delete a Todo [DELETE]
 

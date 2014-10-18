@@ -14,22 +14,22 @@ var todomvc = require('todomvc-api');
 
 gulp.task('test', function(done) {
 
-  // Start your API server.
-  var server = app.listen(8080, function() {
-  
-    // Run the TodoMVC validation test suite.
-    todomvc.validate(function(err, stats) {
-    
-      // Shut down the server & pass a helpful message to Gulp.
-      server.close(function() {
-        if (stats && (stats.errors || stats.failures)) {
-          done('api validation failed');
-          return;
-        }
-        done(err);
-      });
-    });
-  });
+	// Start your API server.
+	var server = app.listen(8080, function() {
+
+		// Run the TodoMVC validation test suite.
+		todomvc.validate(function(err, stats) {
+
+			// Shut down the server & pass a helpful message to Gulp.
+			server.close(function() {
+				if (stats && (stats.errors || stats.failures)) {
+					done('api validation failed');
+					return;
+				}
+				done(err);
+			});
+		});
+	});
 });
 ```
 
@@ -48,5 +48,3 @@ The base location to ping your API.
 - Type: `Function`
 
 This callback is executed with the results of our test suite against your API server.
-
-
