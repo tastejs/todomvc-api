@@ -6,18 +6,17 @@ todomvc-api
 ### Usage w/ [gulp](//gulpjs.com) and [express](//expressjs.com)
 ```
 var todomvc = require('todomvc-api);
+
 gulp.task('test', function(done) {
-  todomvc(function start(serverStarted) {
-    var server = app.listen(0, function() {
-      var serverUrl = url.format({
-        protocol: 'http',
-        hostname: server.address().address,
-        port: server.address().port
-      });
-      serverStarted(serverUrl, function stop(serverStopped) {
-        server.close(serverStopped);
+  var server = app.listen(8080, function() {
+    // default API url is http://localhost:8080       
+    todomvc.validate(function(err, stats) {
+      server.close(function() {
+        done(err);
       });
     });
-  }, done);
+    // also accept custom API url.
+    todomvc.validate('http://127.0.0.1:9090', function(err){});
+  });
 });
 ```
