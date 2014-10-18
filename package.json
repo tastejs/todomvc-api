@@ -5,7 +5,6 @@
   "license": "Apache 2.0",
   "dependencies": {
     "dredd": "^0.3.9",
-    "through2": "^0.6.1",
     "request": "^2.45.0"
   }
 }
