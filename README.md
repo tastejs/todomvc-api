@@ -10,13 +10,17 @@ var todomvc = require('todomvc-api);
 gulp.task('test', function(done) {
   var server = app.listen(8080, function() {
     // default API url is http://localhost:8080       
-    todomvc.validate(function(err, stats) {
+    todomvc.validator().run(function(err, stats) {
       server.close(function() {
+        if (stats && (stats.errors || stats.failures)) {
+          done('api validation failed');
+          return;
+        }
         done(err);
       });
     });
     // also accept custom API url.
-    todomvc.validate('http://127.0.0.1:9090', function(err){});
+    todomvc.validator('http://127.0.0.1:9090').run(function(err, stats){});
   });
 });
 ```
