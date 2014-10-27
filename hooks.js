@@ -1,5 +1,6 @@
 'use strict';
 
+var async = require('async');
 var request = require('request');
 // imports the hooks module _injected_ by dredd.
 var hooks = require('hooks');
@@ -56,21 +57,11 @@ hooks.after('Todos > Todo > Delete a Todo', function (t, done) {
 // Remove all todos that were created by the tests.
 hooks.afterAll(function (done) {
 	request.get(uri('/todos'), function (err, res, todos) {
-		var deleted = 0;
-		var doneCalled = false;
-
-		function completeHook(err) {
-			if (!doneCalled) {
-				doneCalled = true;
-				done(err);
-			}
-		}
-
 		if (!Array.isArray(todos)) {
 			try {
 				todos = JSON.parse(todos);
 			} catch (e) {
-				completeHook(e);
+				done(e);
 			}
 		}
 
@@ -78,23 +69,11 @@ hooks.afterAll(function (done) {
 			return todo.title === 'dredd';
 		});
 
-		if (todosToDelete.length === 0) {
-			completeHook();
-			return;
-		}
-
-		todosToDelete.forEach(function (todo, index, todos) {
-			request.del(uri('/todos/' + todo.id), function (err) {
-				if (err) {
-					completeHook(err);
-					return;
-				}
-
-				if (++deleted === todos.length) {
-					completeHook();
-				}
-			});
-		});
+		async.parallel(todosToDelete.map(function (todo) {
+			return function (next) {
+				request.del(uri('/todos/' + todo.id), next);
+			};
+		}), done);
 	});
 });
 
