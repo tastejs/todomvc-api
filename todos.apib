@@ -21,7 +21,7 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
             {
                 "id": 42,
                 "title": "dredd",
-                "done": false
+                "completed": false
             }
 
 ## List all Todos [GET]
@@ -31,7 +31,7 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
             [{
                 "id": 42,
                 "title": "dredd",
-                "done": false
+                "completed": false
             }]
 
 ## Archive completed Todos [DELETE]
@@ -50,7 +50,7 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
             {
                 "id": 42,
                 "title": "dredd",
-                "done": false
+                "completed": false
             }
 
 ## Update a Todo [PUT]
@@ -59,7 +59,7 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
 
             {
                 "title": "dredd",
-                "done": true
+                "completed": true
             }
 
 + Response 200 (application/json; charset=utf-8)
@@ -67,7 +67,7 @@ Todos API is a todo storage backend for [TodoMVC](//todomvc.com).
             {
                 "id": 42,
                 "title": "dredd",
-                "done": true
+                "completed": true
             }
 
 ## Delete a Todo [DELETE]
