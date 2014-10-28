@@ -4,13 +4,14 @@ var async = require('async');
 var request = require('request');
 // imports the hooks module _injected_ by dredd.
 var hooks = require('hooks');
+var url = require('url');
 
-var API_BASE_URL = global.TODOMVC_API_BASE_URL;
+var BASE_URL;
 
 // DELETE /todos
 // after: check that there is no more completed todos.
 hooks.after('Todos > Todos Collection > Archive completed Todos', function (t, done) {
-	request.get(uri('/todos'), function (err, res, body) {
+	request.get(uri(t, '/todos'), function (err, res, body) {
 		JSON.parse(body).forEach(function (todo) {
 			console.assert(!todo.complete);
 		});
@@ -22,7 +23,7 @@ hooks.after('Todos > Todos Collection > Archive completed Todos', function (t, d
 // before: create a new todo.
 hooks.before('Todos > Todo > Get a Todo', function (t, done) {
 	request.post({
-		uri: uri('/todos'),
+		uri: uri(t, '/todos'),
 		json: {
 			title: 'dredd'
 		}
@@ -37,7 +38,7 @@ hooks.before('Todos > Todo > Get a Todo', function (t, done) {
 // after: check that the todo is gone.
 hooks.before('Todos > Todo > Delete a Todo', function (t, done) {
 	request.post({
-		uri: uri('/todos'),
+		uri: uri(t, '/todos'),
 		json: {
 			title: 'dredd'
 		}
@@ -48,7 +49,7 @@ hooks.before('Todos > Todo > Delete a Todo', function (t, done) {
 });
 
 hooks.after('Todos > Todo > Delete a Todo', function (t, done) {
-	request.get(uri(t.fullPath), function (err, res) {
+	request.get(uri(t, t.fullPath), function (err, res) {
 		console.assert(res.statusCode === 404);
 		return done();
 	});
@@ -77,6 +78,15 @@ hooks.afterAll(function (done) {
 	});
 });
 
-function uri(path) {
-	return API_BASE_URL + path;
+function uri(t, path) {
+	path = path || t;
+	if (!BASE_URL) {
+		BASE_URL = t;
+	}
+	return url.format({
+		protocol: BASE_URL.protocol,
+		hostname: BASE_URL.host,
+		port: BASE_URL.port,
+		pathname: path
+	});
 }

@@ -9,8 +9,6 @@ module.exports.validate = function (serverUrl, cb) {
 		serverUrl = 'http://localhost:8080';
 	}
 
-	global.TODOMVC_API_BASE_URL = serverUrl;
-
 	new Dredd({
 		blueprintPath: path.join(__dirname, 'todos.apib'),
 		server: serverUrl,
