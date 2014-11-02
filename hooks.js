@@ -41,7 +41,7 @@ hooks.before('Todos > Todo > Update a Todo', function (t, done) {
 		uri: uri(t, '/todos'),
 		json: {
 			title: 'dredd',
-            "completed": false
+			completed: false
 		}
 	}, function (err, res, todo) {
 		t.fullPath = '/todos/' + todo.id;
