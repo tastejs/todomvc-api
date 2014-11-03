@@ -33,6 +33,22 @@ hooks.before('Todos > Todo > Get a Todo', function (t, done) {
 	});
 });
 
+// PUT /todos/:id
+// before: create a new todo.
+// after: check that the todo is marked complete.
+hooks.before('Todos > Todo > Update a Todo', function (t, done) {
+	request.post({
+		uri: uri(t, '/todos'),
+		json: {
+			title: 'dredd',
+			completed: false
+		}
+	}, function (err, res, todo) {
+		t.fullPath = '/todos/' + todo.id;
+		return done();
+	});
+});
+
 // DELETE /todos/:id
 // before: create a new todo.
 // after: check that the todo is gone.
