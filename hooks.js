@@ -96,9 +96,11 @@ hooks.afterAll(function (done) {
 
 function uri(t, path) {
 	path = path || t;
+
 	if (!BASE_URL) {
 		BASE_URL = t;
 	}
+
 	return url.format({
 		protocol: BASE_URL.protocol,
 		hostname: BASE_URL.host,

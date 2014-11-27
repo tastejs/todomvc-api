@@ -1,6 +1,6 @@
 {
   "name": "todomvc-api",
-  "description": "Validate your TodoMVC backend.",
+  "description": "Validate your TodoMVC backend",
   "version": "0.2.0",
   "license": "Apache 2.0",
   "dependencies": {
