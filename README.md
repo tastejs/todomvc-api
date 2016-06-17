@@ -46,14 +46,14 @@ gulp.task('test', function (done) {
 
 #### url
 
-Type: `string`  
+Type: `string`
 Default: `http://localhost:8080`
 
 The base location to ping your API.
 
 #### callback
 
-*Required*  
+*Required*
 Type: `function`
 
 This callback is executed with the results of our test suite against your API server.

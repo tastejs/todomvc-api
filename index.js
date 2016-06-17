@@ -21,7 +21,7 @@ server.get('/', function (req, res) {
 });
 
 module.exports.getSpecHtml = function (callback) {
-	var blueprintPath = require.resolve('todomvc-api/todos.apib');
+	var blueprintPath = require.resolve('./todos.apib');
 
 	fs.readFile(blueprintPath, function (err, blueprint) {
 		if (err) {
